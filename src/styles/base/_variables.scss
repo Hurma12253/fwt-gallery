@@ -5,7 +5,10 @@ $black-color: #000;
 $disabled-color: rgba(#000, 0.3);
 $pagination-hover-color: #ededed;
 
+$modal-z-index: 101;
+
 :root {
 	--primary-color: #{$primary-color};
 	--secondary-color: #{$secondary-color};
+	--hover-color: #ededed;
 }

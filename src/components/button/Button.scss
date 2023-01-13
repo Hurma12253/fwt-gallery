@@ -1,6 +1,7 @@
 .button {
+	padding: 15px;
 	color: var(--primary-color);
-	transition: 0.2s;
+	transition: background-color 0.2s;
 	cursor: pointer;
 
 	& > svg {
@@ -12,9 +13,52 @@
 		color: $disabled-color;
 		cursor: default;
 
-		& > svg {
+		& > * > svg {
 			fill: $disabled-color;
 		}
+	}
+
+	&__icons-container{
+		display: flex;
+		align-items: center;
+	}
+
+	&__icon {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		padding-left: 10px;
+	}
+
+	&__content {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+	&--primary {
+		border: 1px solid var(--primary-color);
+		background-color: var(--secondary-color);
+		width: 100%;
+		border-radius: 8px;
+		font-size: 14px;
+
+		& > svg {
+			fill: var(--primary-color);
+		}
+	}
+
+	&--icon{
+		background: transparent;
+		border: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	&--with-icon {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	$pagination-left-border-radius: 6px 0 0 6px;
@@ -22,6 +66,7 @@
 
 	&--pagination {
 		width: 100%;
+		padding: 0;
 		font-size: 18px;
 		background-color: var(--secondary-color);
 		color: var(--primary-color);
@@ -32,7 +77,7 @@
 			background-color: $pagination-hover-color;
 
 			& > svg {
-				fill: var(--secondary-color);
+				fill: var(--primary-color);
 			}
 		}
 	}
@@ -54,5 +99,11 @@
 
 	&--paginaton-last {
 		border-right: 2px solid var(--primary-color);
+	}
+
+	&__text-align {
+		&--left {
+			text-align: left;
+		}
 	}
 }

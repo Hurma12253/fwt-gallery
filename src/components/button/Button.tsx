@@ -5,23 +5,23 @@ import { IButtonProps } from 'components/button/types'
 const Button: React.FC<IButtonProps> = ({
 	variant,
 	additionalVariant,
-	icons,
 	children,
 	className,
 	textAlign = 'center',
 	onEnterPress,
+	overflow,
 	...props
 }) => {
 	const buttonClasses = classNames(
 		'button',
 		variant && `button--${variant}`,
 		additionalVariant && `button--${additionalVariant}`,
-		icons && 'button--with-icon',
 		className
 	)
 
 	const buttonContentClasses = classNames(
 		'button__content',
+		overflow === 'hidden' && 'button__content--overflow-hidden',
 		textAlign !== 'center' && `button__text-align--${textAlign}`
 	)
 
@@ -44,13 +44,6 @@ const Button: React.FC<IButtonProps> = ({
 			{...props}
 		>
 			<div className={buttonContentClasses}>{children}</div>
-			<div className="button__icons-container">
-				{icons?.map((icon, i) => (
-					<div key={i} className="button__icon">
-						{icon}
-					</div>
-				))}
-			</div>
 		</button>
 	)
 }

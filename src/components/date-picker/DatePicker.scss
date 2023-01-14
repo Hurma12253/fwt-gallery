@@ -1,19 +1,41 @@
-.date-picker{
-    &__container{
-        display: flex;
-        align-items: center;
-    }
+.date-picker {
+	&__container {
+		display: flex;
+		align-items: center;
 
-    &__icon-container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-    }
+		@include media-desktop-max {
+			flex-direction: column;
+		}
 
-    &__dash-icon{
-        width: 12px;
-        fill: $black-color;
-        stroke: $black-color;
-    }
+		@include media-desktop-min {
+			flex-direction: row;
+		}
+	}
+
+	&__icon-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 10px;
+
+        @include media-desktop-max {
+			padding: 15px;
+		}
+	}
+
+	&__dash-icon {
+		width: 12px;
+		fill: $black-color;
+		stroke: $black-color;
+	}
+
+	&__input {
+		@include media-desktop-max {
+			max-width: 110px;
+		}
+
+		@include media-desktop-min {
+			max-width: 95px;
+		}
+	}
 }

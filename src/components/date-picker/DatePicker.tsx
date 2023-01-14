@@ -44,6 +44,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onChange }) => {
 					onChange={onFromChangeHandler}
 					placeholder="from"
 					type="date"
+					className='date-picker__input'
 				/>
 				<div className="date-picker__icon-container">
 					<DashIcon className="date-picker__dash-icon" />
@@ -52,6 +53,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onChange }) => {
 					onChange={onBeforeChangeHandler}
 					placeholder="before"
 					type="date"
+					className='date-picker__input'
 				/>
 			</div>
 		</Select>

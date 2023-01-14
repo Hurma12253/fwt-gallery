@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import Button from 'components/button'
@@ -11,12 +11,16 @@ const Select: React.FC<ISelectProps> = ({
 	onValueChange,
 	placeholder = 'choose one',
 	isSeparatorOff,
+	children,
 }) => {
 	const [isOpened, setIsOpened] = useState<boolean>(false)
 	const [currentOption, setCurrentOption] = useState<IOption>({
 		value: '',
 		label: placeholder,
 	})
+	const isTouched = useMemo(() => {
+		return currentOption.value !== ''
+	}, [currentOption])
 
 	const selectRef = React.createRef<HTMLDivElement>()
 
@@ -76,12 +80,15 @@ const Select: React.FC<ISelectProps> = ({
 	const selectButtonClasses = classNames(
 		'select__button',
 		isOpened && 'select__button--active',
-		isSeparatorOff && isOpened && 'select__button--separator-off'
+		isSeparatorOff && isOpened && 'select__button--separator-off',
+		isTouched && 'select__button--has-value'
 	)
 
 	const selectIconClasses = classNames(
 		'select__icon',
-		isOpened && 'select__icon--active'
+		'select__icon-button',
+		'select__arrow-icon',
+		isOpened && 'select__arrow-icon--active'
 	)
 
 	const dropdownClasses = classNames(
@@ -94,28 +101,46 @@ const Select: React.FC<ISelectProps> = ({
 			<div className="select__button-container">
 				<Button
 					variant="primary"
-					icons={[
-						currentOption.value !== '' && (
-							<Button
-								onClick={onSelectClearClickHandler}
-								variant="icon"
-								icons={[<CloseIcon />]}
-							/>
-						),
-						<SelectArrowIcon className={selectIconClasses} />,
-					]}
 					onClick={onSelectClickHandler}
 					onEnterPress={onSelectPressEnterHandler}
 					className={selectButtonClasses}
+					textAlign="left"
 					tabIndex={0}
+					overflow="hidden"
 				>
 					{currentOption.label}
 				</Button>
+				<div className="select__icons">
+					{isTouched && (
+						<Button
+							variant="icon"
+							onClick={onSelectClearClickHandler}
+							className="select__icon-button"
+							tabIndex={isTouched ? 0 : -1}
+						>
+							<CloseIcon className="select__icon" />
+						</Button>
+					)}
+					<Button
+						variant="icon"
+						onClick={onSelectClickHandler}
+						className={selectIconClasses}
+						tabIndex={-1}
+					>
+						<SelectArrowIcon />
+					</Button>
+				</div>
 			</div>
 			<div className={dropdownClasses} tabIndex={-1}>
-				{options ? (
+				{!options && !children && (
+					<div className="select__no-options">No options</div>
+				)}
+				{children && (
+					<div className="select__children-container">{children}</div>
+				)}
+				{options && (
 					<ul className="select__options" tabIndex={-1}>
-						{options?.map((option, i, arr) => {
+						{options.map((option, i, arr) => {
 							return (
 								<li
 									key={option.value}
@@ -137,6 +162,7 @@ const Select: React.FC<ISelectProps> = ({
 												? onLastOptionBlurHandler
 												: undefined
 										}
+										overflow="hidden"
 									>
 										{option.label}
 									</Button>
@@ -144,8 +170,6 @@ const Select: React.FC<ISelectProps> = ({
 							)
 						})}
 					</ul>
-				) : (
-					<div className="select__no-options">No options</div>
 				)}
 			</div>
 		</div>

@@ -1,3 +1,7 @@
+$select-right-padding: 13px;
+$select-icon-padding: 5px;
+$select-icon-size: 10px;
+
 .select {
 	position: relative;
 	max-width: 280px;
@@ -5,6 +9,9 @@
 	height: 45px;
 
 	&__button {
+		padding-right: calc(
+			#{$select-right-padding} + #{$select-icon-padding} * 3 + #{$select-icon-size}
+		);
 		transition: border-radius 0s;
 
 		&--active {
@@ -12,12 +19,39 @@
 			border-bottom-color: $disabled-color;
 		}
 
-		&--separator-off{
+		&--has-value {
+			padding-right: calc(
+				#{$select-right-padding} + #{$select-icon-padding} * 4 + #{$select-icon-size} *
+					2
+			);
+		}
+
+		&--separator-off {
 			border-bottom: 0;
 		}
 	}
 
+	&__icons {
+		position: absolute;
+		top: 50%;
+		right: 18px;
+		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		height: 50%;
+	}
+
+	&__icon-button {
+		padding: $select-icon-padding;
+	}
+
 	&__icon {
+		fill: rgba(var(--primary-color), 0.3);
+		fill-opacity: 0.3;
+	}
+
+	&__arrow-icon {
+		fill: rgba(var(--primary-color), 0.3);
 		transition: 0.2s;
 
 		&--active {
@@ -31,6 +65,7 @@
 		max-height: 0;
 		width: 100%;
 		overflow: hidden;
+		background-color: var(--secondary-color);
 		z-index: $modal-z-index;
 
 		&--active {
@@ -54,7 +89,7 @@
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: var(--primary-color);
+			background-color: $scrollbar-color;
 			border-radius: 10px;
 		}
 	}
@@ -85,5 +120,9 @@
 		height: 100%;
 		padding: 8px;
 		background-color: var(--secondary-color);
+	}
+
+	&__children-container{
+		padding: 22px;
 	}
 }

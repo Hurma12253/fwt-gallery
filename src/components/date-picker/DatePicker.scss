@@ -1,0 +1,19 @@
+.date-picker{
+    &__container{
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    &__dash-icon{
+        width: 12px;
+        fill: $black-color;
+        stroke: $black-color;
+    }
+}

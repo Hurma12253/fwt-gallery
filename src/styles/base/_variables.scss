@@ -11,6 +11,13 @@ $input-placeholder-color: gba(#000, 0.3);
 
 $modal-z-index: 101;
 
+$breakpoints: (
+	"mobile": 320px,
+	"tablet": 768px,
+	"tablet-lg": 1024px,
+	"desktop": 1440px
+)
+
 :root {
 	--primary-color: #{$primary-color};
 	--secondary-color: #{$secondary-color};

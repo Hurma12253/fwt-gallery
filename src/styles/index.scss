@@ -1,5 +1,6 @@
 @import './base/zeroing.scss';
 @import './base/variables';
+@import "./mixins/index.scss";
 @import './app.scss';
 @import '../components/input/Input.scss';
 @import '../components/button/Button.scss';

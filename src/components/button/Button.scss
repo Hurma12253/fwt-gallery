@@ -10,16 +10,17 @@
 	}
 
 	&:disabled {
-		border-color: $disabled-color;
-		color: $disabled-color;
+		border-color: var(--disabled-border-color);
+		color: rgba(var(--primary-color), 0.3);
 		cursor: default;
 
-		& > * > svg {
-			fill: $disabled-color;
+		& svg {
+			fill: var(--primary-color);
+			fill-opacity: 0.3;
 		}
 	}
 
-	&__icons-container{
+	&__icons-container {
 		display: flex;
 		align-items: center;
 	}
@@ -37,12 +38,12 @@
 		border-radius: 8px;
 		font-size: 14px;
 
-		& > svg {
+		& svg {
 			fill: var(--primary-color);
 		}
 	}
 
-	&--icon{
+	&--icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -52,7 +53,7 @@
 		margin: 0;
 		padding: 0;
 
-		.button__content{
+		.button__content {
 			display: flex;
 			align-items: center;
 		}
@@ -72,10 +73,15 @@
 
 		&:hover:enabled:not(.button--pagination-current) {
 			background-color: $pagination-hover-color;
+			color: var(--secondary-color);
 
-			& > svg {
-				fill: var(--primary-color);
+			& svg {
+				fill: var(--secondary-color);
 			}
+		}
+
+		& svg {
+			fill: var(--primary-color);
 		}
 	}
 

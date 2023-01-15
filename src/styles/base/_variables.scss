@@ -13,15 +13,28 @@ $card-info-color: rgba(#fff, 0.75);
 $modal-z-index: 101;
 
 $breakpoints: (
-	"mobile": 320px,
-	"tablet": 768px,
-	"tablet-lg": 1024px,
-	"desktop": 1366px
-)
+	'mobile': 320px,
+	'tablet': 768px,
+	'tablet-lg': 1024px,
+	'desktop': 1366px,
+);
 
-:root {
+html[data-theme='light'] {
 	--primary-color: #{$primary-color};
 	--secondary-color: #{$secondary-color};
 	--hover-color: #ededed;
-	--logo-color: #4C4C4C;
+	--logo-color: #4c4c4c;
+	--disabled-border-color: #b3b3b3;
+	--placeholder-color: #b3b3b3;
+	--date-picker-input-color: #efefef;
+}
+
+html[data-theme='dark'] {
+	--primary-color: #{$secondary-color};
+	--secondary-color: #{$primary-color};
+	--hover-color: #ededed;
+	--logo-color: #4c4c4c;
+	--disabled-border-color: #4c4c4c;
+	--placeholder-color: #4c4c4c;
+	--date-picker-input-color: #{$white-color};
 }

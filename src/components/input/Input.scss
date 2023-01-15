@@ -11,7 +11,7 @@
 	box-shadow: none;
 
 	&::placeholder {
-		color: $input-placeholder-color;
+		color: var(--placeholder-color);
 	}
 
 	&::-webkit-calendar-picker-indicator {

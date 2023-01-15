@@ -11,4 +11,8 @@
     &__logo{
         stroke: var(--logo-color);
     }
+
+    &__theme-icon{
+        fill: var(--primary-color);
+    }
 }

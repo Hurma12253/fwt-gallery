@@ -30,6 +30,7 @@
 	}
 
 	&__input {
+		background-color: var(--date-picker-input-color);
 		@include media-desktop-max {
 			max-width: 110px;
 		}

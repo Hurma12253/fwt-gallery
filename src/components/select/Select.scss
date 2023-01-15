@@ -15,7 +15,7 @@ $select-icon-size: 10px;
 
 		&--active {
 			border-radius: 8px 8px 0 0;
-			border-bottom-color: $disabled-color;
+			border-bottom-color: var(--disabled-border-color);
 		}
 
 		&--has-value {
@@ -119,6 +119,7 @@ $select-icon-size: 10px;
 		height: 100%;
 		padding: 8px;
 		background-color: var(--secondary-color);
+		color: var(--primary-color);
 	}
 
 	&__children-container{

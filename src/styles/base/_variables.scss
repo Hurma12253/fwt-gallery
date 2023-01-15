@@ -7,7 +7,8 @@ $disabled-color: rgba(#000, 0.3);
 $pagination-hover-color: #ededed;
 $scrollbar-color: #7b7b7b;
 $input-background-color: #efefef;
-$input-placeholder-color: gba(#000, 0.3);
+$input-placeholder-color: rgba(#000, 0.3);
+$card-info-color: rgba(#fff, 0.75);
 
 $modal-z-index: 101;
 
@@ -15,7 +16,7 @@ $breakpoints: (
 	"mobile": 320px,
 	"tablet": 768px,
 	"tablet-lg": 1024px,
-	"desktop": 1440px
+	"desktop": 1366px
 )
 
 :root {

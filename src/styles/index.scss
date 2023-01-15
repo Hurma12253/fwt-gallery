@@ -1,3 +1,4 @@
+@import './base/fonts.scss';
 @import './base/zeroing.scss';
 @import './base/variables';
 @import "./mixins/index.scss";
@@ -7,3 +8,4 @@
 @import '../components/pagination/Pagination.scss';
 @import '../components/select/Select.scss';
 @import '../components/date-picker/DatePicker.scss';
+@import '../components/card/Card.scss';

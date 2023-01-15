@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 import Card from 'components/card'
 import DatePicker from 'components/date-picker'
 import Pagination from 'components/pagination'
@@ -6,6 +7,7 @@ import Select from 'components/select'
 import Header from 'components/header'
 import Input from 'components/input'
 import './styles/index.scss'
+import { useStore } from 'hooks/useStore'
 
 const data = Array(12)
 	.fill('')
@@ -21,6 +23,8 @@ const currentPage = 1
 const pages = 12
 
 const App: React.FC = () => {
+	const { galleryStore } = useStore()
+
 	return (
 		<div className="container">
 			<Header />
@@ -35,9 +39,13 @@ const App: React.FC = () => {
 					return <Card key={i + props.title} {...props} />
 				})}
 			</div>
+			<button onClick={() => galleryStore.setName('vasya nahui')}>
+				click
+			</button>
+			<button onClick={() => galleryStore.getName()}>click</button>
 			<Pagination currentPage={currentPage} pages={pages} />
 		</div>
 	)
 }
 
-export default App
+export default observer(App)

@@ -1,0 +1,65 @@
+.card {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+	max-width: 360px;
+	width: 100%;
+	border-radius: 20px;
+	overflow: hidden;
+	cursor: pointer;
+
+	&:hover {
+		.card__info {
+			top: 50%;
+		}
+	}
+
+	&__image-container {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+	}
+
+	&__title {
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+
+	&__info {
+		position: absolute;
+		top: calc(100% - 30px);
+		left: 0;
+		right: 0;
+        height: 500px;
+		padding: 2px 15px;
+		background-color: $card-info-color;
+		transition: top 0.2s;
+	}
+
+    &__info-list {
+        display: flex;
+        flex-direction: column;
+	}
+
+    &__row{
+        display: flex;
+        margin-bottom: 15px;
+    }
+
+    &__parameter{
+        margin-right: 10px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    &__value{
+        font-size: 14px;
+        font-weight: 300;
+    }
+}

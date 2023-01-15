@@ -11,6 +11,7 @@ const Select: React.FC<ISelectProps> = ({
 	onValueChange,
 	placeholder = 'choose one',
 	isSeparatorOff,
+	className,
 	children,
 }) => {
 	const [isOpened, setIsOpened] = useState<boolean>(false)
@@ -75,7 +76,7 @@ const Select: React.FC<ISelectProps> = ({
 
 	useOnClickOutside(selectRef, onOutsideClickHandler)
 
-	const selectClasses = classNames('select', isOpened && 'select--active')
+	const selectClasses = classNames('select', isOpened && 'select--active', className)
 
 	const selectButtonClasses = classNames(
 		'select__button',

@@ -11,7 +11,13 @@ const Card: React.FC<ICardProps> = ({
 	return (
 		<div className="card">
 			<div className="card__image-container">
-				<img className="card__image" src={url} alt={title} />
+				<img
+					width={280}
+					height={205}
+					className="card__image"
+					src={url}
+					alt={title}
+				/>
 			</div>
 			<div className="card__info">
 				<div className="card__title">{title}</div>

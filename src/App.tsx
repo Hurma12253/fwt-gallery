@@ -1,23 +1,41 @@
+import React from 'react'
+import Card from 'components/card'
+import DatePicker from 'components/date-picker'
 import Pagination from 'components/pagination'
-import React, { useMemo } from 'react'
-import { useState } from 'react'
+import Select from 'components/select'
+import Header from 'components/header'
+import Input from 'components/input'
 import './styles/index.scss'
 
-const App: React.FC = () => {
-	const pages = useMemo(() => 36, [])
-	const [currentPage1, setCurrentPage1] = useState<number>(1)
+const data = Array(12)
+	.fill('')
+	.map(() => ({
+		url: 'https://sun9-40.userapi.com/impg/_eFXzD61an_Yer9aPB4quVR9gilN1BCks9W2Iw/X7mVRoeIHGY.jpg?size=1024x1024&quality=95&sign=489f8eb54e33ac7491255e823460a632&type=album',
+		title: 'The Night Watch',
+		created: '1642',
+		location: 'The Rijksmuseum',
+		author: 'Rembrandt',
+	}))
 
-	const onPageClickHandler1 = (page: number) => {
-		setCurrentPage1(page)
-	}
+const currentPage = 1
+const pages = 12
+
+const App: React.FC = () => {
 	return (
-		<div className="app">
-			<Pagination
-				pages={pages}
-				currentPage={currentPage1}
-				onPageClick={onPageClickHandler1}
-			/>
-			<h1>k</h1>
+		<div className="container">
+			<Header />
+			<div className="controls">
+				<Input variant="primary" placeholder="Name" />
+				<Select placeholder="Author" />
+				<Select placeholder="Location" />
+				<DatePicker className="control" />
+			</div>
+			<div className="card-container">
+				{data.map((props, i) => {
+					return <Card key={i + props.title} {...props} />
+				})}
+			</div>
+			<Pagination currentPage={currentPage} pages={pages} />
 		</div>
 	)
 }

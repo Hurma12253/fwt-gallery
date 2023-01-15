@@ -7,15 +7,15 @@ import {
 	IDatePickerValue,
 } from 'components/date-picker/types'
 
-const DatePicker: React.FC<IDatePickerProps> = ({ onChange }) => {
+const DatePicker: React.FC<IDatePickerProps> = ({ onDateChange, ...props }) => {
 	const [value, setValue] = useState<IDatePickerValue>({
 		from: '',
 		before: '',
 	})
 
-	const onChangeHandler = (value: IDatePickerValue) => {
-		if (onChange) {
-			onChange(value)
+	const onDateChangeHandler = (value: IDatePickerValue) => {
+		if (onDateChange) {
+			onDateChange(value)
 		}
 	}
 
@@ -25,7 +25,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onChange }) => {
 		const newValue = { ...value, from: event.target.value }
 
 		setValue(newValue)
-		onChangeHandler(newValue)
+		onDateChangeHandler(newValue)
 	}
 
 	const onBeforeChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (
@@ -34,17 +34,17 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onChange }) => {
 		const newValue = { ...value, before: event.target.value }
 
 		setValue(newValue)
-		onChangeHandler(newValue)
+		onDateChangeHandler(newValue)
 	}
-    
+
 	return (
-		<Select placeholder="Created" isSeparatorOff>
+		<Select placeholder="Created" isSeparatorOff {...props}>
 			<div className="date-picker__container">
 				<Input
 					onChange={onFromChangeHandler}
 					placeholder="from"
 					type="date"
-					className='date-picker__input'
+					className="date-picker__input"
 				/>
 				<div className="date-picker__icon-container">
 					<DashIcon className="date-picker__dash-icon" />
@@ -53,7 +53,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onChange }) => {
 					onChange={onBeforeChangeHandler}
 					placeholder="before"
 					type="date"
-					className='date-picker__input'
+					className="date-picker__input"
 				/>
 			</div>
 		</Select>

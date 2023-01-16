@@ -9,9 +9,9 @@
 		fill: var(--primary-color);
 	}
 
-	&:disabled {
+	&:disabled:not(.button--pagination-current) {
 		border-color: var(--disabled-border-color);
-		color: rgba(var(--primary-color), 0.3);
+		color: var(--disabled-button-text-color);
 		cursor: default;
 
 		& svg {

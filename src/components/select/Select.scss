@@ -45,12 +45,13 @@ $select-icon-size: 10px;
 	}
 
 	&__icon {
-		fill: rgba(var(--primary-color), 0.3);
+		fill: var(--primary-color);
 		fill-opacity: 0.3;
 	}
 
 	&__arrow-icon {
-		fill: rgba(var(--primary-color), 0.3);
+		fill: var(--primary-color);
+		fill-opacity: 0.3;
 		transition: 0.2s;
 
 		&--active {
@@ -122,7 +123,7 @@ $select-icon-size: 10px;
 		color: var(--primary-color);
 	}
 
-	&__children-container{
+	&__children-container {
 		padding: 22px;
 	}
 }

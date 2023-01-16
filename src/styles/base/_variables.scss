@@ -27,6 +27,7 @@ html[data-theme='light'] {
 	--disabled-border-color: #b3b3b3;
 	--placeholder-color: #b3b3b3;
 	--date-picker-input-color: #efefef;
+	--disabled-button-text-color: #b3b3b3;
 }
 
 html[data-theme='dark'] {
@@ -37,4 +38,5 @@ html[data-theme='dark'] {
 	--disabled-border-color: #4c4c4c;
 	--placeholder-color: #4c4c4c;
 	--date-picker-input-color: #{$white-color};
+	--disabled-button-text-color: #4c4c4c;
 }

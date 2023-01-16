@@ -73,7 +73,7 @@ const App: React.FC = () => {
 				<DatePicker className="control" />
 			</div>
 			{!galleryStore.isLoading && galleryStore.paintings.length <= 0 && (
-				<h5>No paintings.</h5>
+				<h5 className='no-paintings'>No paintings.</h5>
 			)}
 			<div className="card-container">
 				{galleryStore.isLoading ? (

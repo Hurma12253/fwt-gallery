@@ -39,7 +39,7 @@ body{
 	margin-bottom: 45px;
 
 	@include media-tablet-max {
-		grid-template-columns: repeat(1, 12fr);
+		grid-template-columns: repeat(1, minmax(0,12fr));
 		gap: 15px;
 	}
 }

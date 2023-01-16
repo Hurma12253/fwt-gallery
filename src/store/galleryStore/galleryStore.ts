@@ -68,10 +68,9 @@ export class GalleryStore {
 				q: this.currentQuery || undefined,
 			}
 
-			const { data } = await api.getPaintings({
-				...defaultParams,
-				...params,
-			})
+			const finalParams = { ...defaultParams, ...params }
+
+			const { data } = await api.getPaintings(finalParams)
 
 			runInAction(() => {
 				this.paintings = mapImageUrl(data)
@@ -88,8 +87,6 @@ export class GalleryStore {
 					}
 					if (params.q) {
 						this.currentQuery = params.q
-					} else {
-						this.currentQuery = null
 					}
 				}
 			})

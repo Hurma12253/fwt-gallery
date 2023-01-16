@@ -12,6 +12,7 @@ const Select: React.FC<ISelectProps> = ({
 	placeholder = 'choose one',
 	isSeparatorOff,
 	className,
+	onClear,
 	children,
 }) => {
 	const [isOpened, setIsOpened] = useState<boolean>(false)
@@ -39,6 +40,10 @@ const Select: React.FC<ISelectProps> = ({
 			label: placeholder,
 		})
 		setIsOpened(false)
+
+		if (onClear) {
+			onClear()
+		}
 	}
 
 	const onSelectPressEnterHandler = () => {
@@ -76,7 +81,11 @@ const Select: React.FC<ISelectProps> = ({
 
 	useOnClickOutside(selectRef, onOutsideClickHandler)
 
-	const selectClasses = classNames('select', isOpened && 'select--active', className)
+	const selectClasses = classNames(
+		'select',
+		isOpened && 'select--active',
+		className
+	)
 
 	const selectButtonClasses = classNames(
 		'select__button',

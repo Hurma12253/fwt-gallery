@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import Card from 'components/card'
 import DatePicker from 'components/date-picker'
@@ -8,42 +8,99 @@ import Header from 'components/header'
 import Input from 'components/input'
 import './styles/index.scss'
 import { useStore } from 'hooks/useStore'
-
-const data = Array(12)
-	.fill('')
-	.map(() => ({
-		url: 'https://sun9-40.userapi.com/impg/_eFXzD61an_Yer9aPB4quVR9gilN1BCks9W2Iw/X7mVRoeIHGY.jpg?size=1024x1024&quality=95&sign=489f8eb54e33ac7491255e823460a632&type=album',
-		title: 'The Night Watch',
-		created: '1642',
-		location: 'The Rijksmuseum',
-		author: 'Rembrandt',
-	}))
-
-const currentPage = 1
-const pages = 12
+import useDebounce from 'hooks/useDebounce'
 
 const App: React.FC = () => {
 	const { galleryStore } = useStore()
+	const [queryValue, setQueryValue] = useState<string>('')
+	const deboucedQueryValue = useDebounce(queryValue, 1000)
+
+	const onPageChangeHandler = (page: number) => {
+		galleryStore.changePage(page)
+	}
+
+	const onAuthorChangeHandler = (authorId: number) => {
+		galleryStore.fetchByAuthor(authorId)
+	}
+
+	const onAuthorClearHandler = () => {
+		galleryStore.clearAuthor()
+	}
+
+	const onLocationChangeHandler = (locationId: number) => {
+		galleryStore.fetchByLocation(locationId)
+	}
+	const onLocationClearHadnler = () => {
+		galleryStore.clearLocation()
+	}
+
+	const onQueryChangeHandler = (value: string) => {
+		setQueryValue(value)
+	}
+
+	useEffect(() => {
+		galleryStore.initialFetch()
+	}, [galleryStore])
+
+	useEffect(() => {
+		galleryStore.fetchByQuery(deboucedQueryValue)
+	}, [galleryStore, deboucedQueryValue])
 
 	return (
 		<div className="container">
 			<Header />
 			<div className="controls">
-				<Input variant="primary" placeholder="Name" />
-				<Select placeholder="Author" />
-				<Select placeholder="Location" />
+				<Input
+					variant="primary"
+					placeholder="Name"
+					onValueChange={onQueryChangeHandler}
+				/>
+				<Select
+					placeholder="Author"
+					options={galleryStore.authors.map(({ id, name }) => ({
+						value: id,
+						label: name,
+					}))}
+					onValueChange={onAuthorChangeHandler}
+					onClear={onAuthorClearHandler}
+				/>
+				<Select
+					placeholder="Location"
+					options={galleryStore.locations.map(({ location, id }) => ({
+						value: id,
+						label: location,
+					}))}
+					onValueChange={onLocationChangeHandler}
+					onClear={onLocationClearHadnler}
+				/>
 				<DatePicker className="control" />
 			</div>
 			<div className="card-container">
-				{data.map((props, i) => {
-					return <Card key={i + props.title} {...props} />
+				{galleryStore.paintings.map((data, i) => {
+					return (
+						<Card
+							key={data.id}
+							title={data.name}
+							author={
+								galleryStore.findAuthor(data.authorId)?.name ||
+								'Not found'
+							}
+							created={data.created}
+							location={
+								galleryStore.findLocation(data.locationId)
+									?.location || 'Not found'
+							}
+							url={data.imageUrl}
+						/>
+					)
 				})}
 			</div>
-			<button onClick={() => galleryStore.setName('vasya nahui')}>
-				click
-			</button>
-			<button onClick={() => galleryStore.getName()}>click</button>
-			<Pagination currentPage={currentPage} pages={pages} />
+			<Pagination
+				onPageClick={onPageChangeHandler}
+				currentPage={galleryStore.currentPage}
+				pages={galleryStore.pages}
+				disabled={galleryStore.isLoading}
+			/>
 		</div>
 	)
 }

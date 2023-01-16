@@ -84,7 +84,7 @@ const Pagination: React.FC<IPaginationProps> = ({
 								? 'pagination-current'
 								: undefined
 						}
-						disabled={disabled}
+						disabled={disabled || page > pages}
 					>
 						{page}
 					</Button>

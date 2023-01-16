@@ -20,7 +20,7 @@ $select-icon-size: 10px;
 
 		&--has-value {
 			padding-right: calc(
-				#{$select-right-padding} + #{$select-icon-padding} * 4 + #{$select-icon-size} *
+				#{$select-right-padding} + #{$select-icon-padding} * 5 + #{$select-icon-size} *
 					2
 			);
 		}

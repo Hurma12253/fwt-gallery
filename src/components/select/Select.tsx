@@ -145,7 +145,7 @@ const Select: React.FC<ISelectProps> = ({
 				{!options && !children && (
 					<div className="select__no-options">No options</div>
 				)}
-				{children && (
+				{children && !options && (
 					<div className="select__children-container">{children}</div>
 				)}
 				{options && (

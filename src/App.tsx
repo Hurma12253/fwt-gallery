@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import Card from 'components/card'
 import DatePicker from 'components/date-picker'
@@ -6,14 +6,17 @@ import Pagination from 'components/pagination'
 import Select from 'components/select'
 import Header from 'components/header'
 import Input from 'components/input'
-import './styles/index.scss'
+import Loader from 'components/loader'
 import { useStore } from 'hooks/useStore'
-import useDebounce from 'hooks/useDebounce'
+import { debounce } from 'utils/debounce'
+import './styles/index.scss'
 
 const App: React.FC = () => {
 	const { galleryStore } = useStore()
-	const [queryValue, setQueryValue] = useState<string>('')
-	const deboucedQueryValue = useDebounce(queryValue, 1000)
+
+	const onQueryChangeHandler = debounce<(value: string) => void>((value) => {
+		galleryStore.fetchByQuery(value)
+	}, 1000)
 
 	const onPageChangeHandler = (page: number) => {
 		galleryStore.changePage(page)
@@ -30,21 +33,13 @@ const App: React.FC = () => {
 	const onLocationChangeHandler = (locationId: number) => {
 		galleryStore.fetchByLocation(locationId)
 	}
-	const onLocationClearHadnler = () => {
+	const onLocationClearHandler = () => {
 		galleryStore.clearLocation()
-	}
-
-	const onQueryChangeHandler = (value: string) => {
-		setQueryValue(value)
 	}
 
 	useEffect(() => {
 		galleryStore.initialFetch()
 	}, [galleryStore])
-
-	useEffect(() => {
-		galleryStore.fetchByQuery(deboucedQueryValue)
-	}, [galleryStore, deboucedQueryValue])
 
 	return (
 		<div className="container">
@@ -63,6 +58,7 @@ const App: React.FC = () => {
 					}))}
 					onValueChange={onAuthorChangeHandler}
 					onClear={onAuthorClearHandler}
+					children={galleryStore.isLoading && <Loader />}
 				/>
 				<Select
 					placeholder="Location"
@@ -71,29 +67,37 @@ const App: React.FC = () => {
 						label: location,
 					}))}
 					onValueChange={onLocationChangeHandler}
-					onClear={onLocationClearHadnler}
+					onClear={onLocationClearHandler}
+					children={galleryStore.isLoading && <Loader />}
 				/>
 				<DatePicker className="control" />
 			</div>
+			{!galleryStore.isLoading && galleryStore.paintings.length <= 0 && (
+				<h5>No paintings.</h5>
+			)}
 			<div className="card-container">
-				{galleryStore.paintings.map((data, i) => {
-					return (
-						<Card
-							key={data.id}
-							title={data.name}
-							author={
-								galleryStore.findAuthor(data.authorId)?.name ||
-								'Not found'
-							}
-							created={data.created}
-							location={
-								galleryStore.findLocation(data.locationId)
-									?.location || 'Not found'
-							}
-							url={data.imageUrl}
-						/>
-					)
-				})}
+				{galleryStore.isLoading ? (
+					<Loader />
+				) : (
+					galleryStore.paintings.map((data, i) => {
+						return (
+							<Card
+								key={data.id}
+								title={data.name}
+								author={
+									galleryStore.findAuthor(data.authorId)
+										?.name || 'Not found'
+								}
+								created={data.created}
+								location={
+									galleryStore.findLocation(data.locationId)
+										?.location || 'Not found'
+								}
+								url={data.imageUrl}
+							/>
+						)
+					})
+				)}
 			</div>
 			<Pagination
 				onPageClick={onPageChangeHandler}

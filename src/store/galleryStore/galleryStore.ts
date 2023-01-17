@@ -70,11 +70,17 @@ export class GalleryStore {
 
 			const finalParams = { ...defaultParams, ...params }
 
+			const { data: allThePaintings } = await api.getPaintings({
+				...finalParams,
+				_limit: undefined,
+				_page: undefined,
+			})
 			const { data } = await api.getPaintings(finalParams)
 
 			runInAction(() => {
 				this.paintings = mapImageUrl(data)
 				this.isLoading = false
+				this.pages = Math.ceil(allThePaintings.length / this.cardsOnPage)
 
 				if (params) {
 					if (params.authorId) {

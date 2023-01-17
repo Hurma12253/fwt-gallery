@@ -43,7 +43,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onDateChange, ...props }) => {
 				<Input
 					onChange={onFromChangeHandler}
 					placeholder="from"
-					type="date"
+					type="number"
 					className="date-picker__input"
 				/>
 				<div className="date-picker__icon-container">
@@ -52,7 +52,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({ onDateChange, ...props }) => {
 				<Input
 					onChange={onBeforeChangeHandler}
 					placeholder="before"
-					type="date"
+					type="number"
 					className="date-picker__input"
 				/>
 			</div>
